@@ -44,7 +44,7 @@ Fast shadowsocks tunnel proxy that helps you bypass firewalls
 
 # Basic Xray Server Configuration
 
-## Xray facts:
+## Important configuration notes:
    * **UI access port** `http://localhost:54321`, (*change `localhost` to your server host ip/name*)
    * **Default password** is `admin/admin`, which **must** be changed via web interface on first login (`Pannel Settings` > `User Settings`).
    * **External ports** used by container: `443:tcp`, `80:tcp`, `54321:tcp`(by default), Inbound ports you'll configure.
