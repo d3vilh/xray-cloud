@@ -1,6 +1,7 @@
 # xray-cloud
 Fast shadowsocks tunnel proxy that helps you bypass firewalls
-
+  > **!Beaware!**: Some protocols described here are [prohibited in PRC](https://en.wikipedia.org/wiki/Shadowsocks). Don't use this if you are in PRC. This is for your educational purposes only. 
+  
 # Installation
 
   1. Install [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) and Git:
@@ -37,9 +38,11 @@ Fast shadowsocks tunnel proxy that helps you bypass firewalls
      ```shell
      ansible-playbook main.yml
      ```
+  9. Ypu have to allow Security Group for your EC2 instance to allow inbound traffic on ports 80, 443, 54321, 2098, 10000-20000.
+  
+  10. After installation, you can access the Xray Web UI at `http://<your-server-ip>:54321` and login with the default username `admin` and password `admin`. You can change the password in the Web UI.
 
 # Basic Xray Server Configuration
-  > **!Beaware!**: Some protocols described here are [prohibited in PRC](https://en.wikipedia.org/wiki/Shadowsocks). Don't use this if you are in PRC. This is for your educational purposes only. 
 
 ## Xray facts:
    * **UI access port** `http://localhost:54321`, (*change `localhost` to your server host ip/name*)
@@ -117,6 +120,12 @@ Here how Realty Configuration looks like:
 This is what you'll have as a result of our configuration:
 
 <img src="https://raw.githubusercontent.com/d3vilh/raspberry-gateway/master/images/XRAY-Inbounds1.png" alt="Raspberry Configured XRAY Inbounds" width="900" border="0" />
+
+
+## AWS Security Group Configuration
+
+Based on yhe ports you've configured in XRAY Inbounds, you have to allow inbound traffic on ports 80, 443, 2098, <YOUR-UI-PORT>, 10000-20000.
+
 
 ## Additional Options.
 Under `Pannel Settings` > `Xray Configuration` you can find some additional options. Such as block BitTorrent traffic for your Clients or enable Ads Blocking or Family-Friendly for them. 
