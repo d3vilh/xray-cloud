@@ -1,0 +1,14 @@
+---
+# Location where configuration files will be stored.
+config_dir: '~'
+
+#   __   __      
+#   \ \ / /   _____ _____ __ __ 
+#    \ V /__ | __  |  _  |  |  |
+#    /   \__||    -|     |_   _|
+#   / /^\ \  |__|__|__|__| |_|     
+#   \/   \/ Shadowsocks fast tunnel proxy.
+# experimental container with X-UI supports Shadowsocks, VMess, VLESS, XTLS and Trojan protocols  
+# !Beaware! some XRAY protocols from the list are prohibited in PRC. Don't use this if you are in PRC.      
+xray_enable: true                               # Set true to enable X-RAY x-ui eXperimental
+remove_xray: false

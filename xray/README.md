@@ -1,65 +1,25 @@
-# xray-cloud
-Fast shadowsocks tunnel proxy that helps you bypass firewalls
-
-# Installation
-
-  1. Install [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) and Git:
-     ```shell 
-     sudo apt-get install -y python3-pip git rsync
-     pip3 install ansible
-     ```
-  2. Clone this repository: 
-     ```shell
-     git clone https://github.com/d3vilh/xray-cloud
-     ```
-  3. Then enter the repository directory: 
-     ```shell 
-     cd xray-cloud
-     ```
-  4. Install requirements: 
-     ```shell
-     ansible-galaxy collection install -r requirements.yml
-     ```
-     > If you see `ansible-galaxy: command not found`, you have to relogin and then try again.
-  5. Make copies of the configuration files and modify them for your enviroment:
-     ```shell
-     yes | cp -p example.inventory.yml inventory.yml
-     yes | cp -p example.config.yml config.yml
-     ```
-  6. Run the following command to add the `docker` group if it doesn't exist and add user to the `docker` group:
-     ```shell
-     sudo groupadd docker
-     sudo usermod -aG docker $USER
-     ```
-  7. Modify `inventory.yml` by replace of IP address with your EC2's Public or Private IPv4 address, or comment that line and uncomment the `connection=local` line if you're running it on the EC2 itself.
-
-  8. Run installation playbook:
-     ```shell
-     ansible-playbook main.yml
-     ```
-
 # Basic Xray Server Configuration
   > **!Beaware!**: Some protocols described here are [prohibited in PRC](https://en.wikipedia.org/wiki/Shadowsocks). Don't use this if you are in PRC. This is for your educational purposes only. 
 
 ## Xray facts:
-   * **UI access port** `http://localhost:54321`, (*change `localhost` to your server host ip/name*)
+   * **UI access port** `http://localhost:54321`, (*change `localhost` to your Raspberry host ip/name*)
    * **Default password** is `admin/admin`, which **must** be changed via web interface on first login (`Pannel Settings` > `User Settings`).
    * **External ports** used by container: `443:tcp`, `80:tcp`, `54321:tcp`(by default), Inbound ports you'll configure.
-   * **Configuration files** you should mount `db` and `cert` directories into container, there it will store SQLite DB with configuration and there you'll put https certificate.
+   * **Configuration files** are available after the installation and located in `~/xray/` directory
+   * **Advanced Configuration** No advanced configuration.
    * **It is Important** to change following settings for better security:
      * default password in `Pannel Settings` > `User Settings` > `Password` to something strong and secure.
      * default pannel port in `Pannel Settings` > `Pannel Configurations` > `Pannel Port` from `54321` to some random port (the best in the upper end of the range, up to `65535`)
      * default configuration pannel URL in `Pannel Settings` > `Pannel Configurations` > `Panel URL Root Path` to something random, like `/mysecretpannel/` or `/superxray/`.
 
 ## Inbounds configuration
-Now when default security configuration is done. It is time to configure Xray to work with your Server. There is few steps below you should follow.<br>
+Now when default security configuration is done. It is time to configure Xray to work with your Raspberry. There is few steps below you should follow.
 More Xray configuration examples can be found [here](https://github.com/XTLS/Xray-examples).
 
 ### 1. SHADOWSOCKS Configuration
 To create Shadowsocks Inbound you need to:
 * Enable Subscriptions:
 `Pannel Service` > `Subscriptions` > `Enable Service` > `ON`
-
 `Save` > `Restart Pannel` to apply Subscriptions.
 * Add new Inbound:
 `Inbounds` > `Add Inbound`:
@@ -75,13 +35,11 @@ To create Shadowsocks Inbound you need to:
     * `Encryption`: for Shadowsocks use any encryption you like which starts with 2022. For example `2022-blake3-aes-256-gcm`
     * `Network`: `tcp,udp` or `tcp` for Shadowsocks
     * `Transmission`: `tcp`
-
-You can use Shadowsocks now, but it is better to continue with VLESS & XTLS-Reality configuration below to bypass [Active probing](https://ensa.fi/active-probing/).
+You can use Shadowsocks now, but it is better to continue with VLESS & XTLS-Reality configuration to bypass [Active probing](https://ensa.fi/active-probing/). Follow the steps below.
 
 Here how Shadowsocs Configuration looks like:
 
-
-<img src="https://raw.githubusercontent.com/d3vilh/raspberry-gateway/master/images/XRAY-SS-Config1.png" alt="Raspberry ShadowSocks Configuration 1" width="300" border="0" />
+<img src="https://github.com/d3vilh/raspberry-gateway/blob/master/images/XRAY-SS-Config1.png" alt="Raspberry ShadowSocks Configuration 1" width="300" border="0" />
 
 ### 2. VLESS & XTLS-Reality Configuration
 To create VLESS Inbound you need to:
@@ -94,7 +52,7 @@ To create VLESS Inbound you need to:
   * `Protocol`: `vless`
   * `Listen IP`: IP where server will listen for connections. You can leave it empty in this case it will listen on all interfaces.
   * `Listen Port`: `443` Port where server will listen for connections.
-  * `Total Flow GB` and `Expire date` is limit parameters you could set for this inbound. Leave it empty for unlimited.
+  * `Total Flow GB` and `Expire date` is limit parameters you could sent for this inbound. Leave it empty for unlimited.
   * `Client` >
     * `Email`: Anything humanreadable, to identify this client (`RealUser1`, for example)
     * `ID`: Random UUID by default - leave it.
@@ -111,18 +69,18 @@ To create VLESS Inbound you need to:
 
 Here how Realty Configuration looks like:
 
+<img src="https://github.com/d3vilh/raspberry-gateway/blob/master/images/XRAY-Realty-Config1.png" alt="Raspberry Realty Configuration 1" width="300" border="0" />
 
-<img src="https://raw.githubusercontent.com/d3vilh/raspberry-gateway/master/images/XRAY-Realty-Config1.png" alt="Raspberry Realty Configuration 1" width="300" border="0" /><br><img src="https://raw.githubusercontent.com/d3vilh/raspberry-gateway/master/images/XRAY-Realty-Config2.png" alt="Raspberry Realty Configuration 2" width="300" border="0" />
+<img src="https://github.com/d3vilh/raspberry-gateway/blob/master/images/XRAY-Realty-Config2.png" alt="Raspberry Realty Configuration 2" width="300" border="0" />
 
 This is what you'll have as a result of our configuration:
 
-<img src="https://raw.githubusercontent.com/d3vilh/raspberry-gateway/master/images/XRAY-Inbounds1.png" alt="Raspberry Configured XRAY Inbounds" width="900" border="0" />
+<img src="https://github.com/d3vilh/raspberry-gateway/blob/master/images/XRAY-Inbounds1.png" alt="Raspberry Configured XRAY Inbounds" width="900" border="0" />
 
 ## Additional Options.
 Under `Pannel Settings` > `Xray Configuration` you can find some additional options. Such as block BitTorrent traffic for your Clients or enable Ads Blocking or Family-Friendly for them. 
 You can block connections to specific countries from the list like China, Russia, etc.
 In addition you can setup XRAY Telegram Bot which will help you to manage your XRAY Server via Telegram.
-
 
 # Xray Clients
 Here is the list of Clients you can use with XRAY Server. 
