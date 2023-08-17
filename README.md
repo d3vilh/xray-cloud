@@ -150,3 +150,5 @@ Uses XRay as a kernel, supports all the available for XRAY protocols.
 
 * [**ShadowRocket**](https://apps.apple.com/us/app/shadowrocket/id932747118). On [Appstore](https://apps.apple.com/us/app/shadowrocket/id932747118) for iPhone and iPad. Costs 3,99$.
 Supports Shadowsocks-2022, VMess, VLESS, Trojan, TUIC, Hysteria, WireGuard, XTLS-Vision, uTLS.
+
+<a href="https://www.buymeacoffee.com/d3vilh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
