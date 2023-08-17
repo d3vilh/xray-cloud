@@ -38,7 +38,7 @@ Fast shadowsocks tunnel proxy that helps you bypass firewalls
      ```shell
      ansible-playbook main.yml
      ```
-  9. Ypu have to allow Security Group for your EC2 instance to allow inbound traffic on ports 80, 443, 54321, 2098, 10000-20000.
+  9. Ypu have to allow Security Group for your EC2 instance to allow inbound traffic on ports 80, 443, 54321(temporary), 2098.
   
   10. After installation, you can access the Xray Web UI at `http://<your-server-ip>:54321` and login with the default username `admin` and password `admin`. You can change the password in the Web UI.
 
@@ -124,7 +124,7 @@ This is what you'll have as a result of our configuration:
 
 ## AWS Security Group Configuration
 
-Based on yhe ports you've configured in XRAY Inbounds, you have to allow inbound traffic on ports 80, 443, 2098, <YOUR-UI-PORT>, 10000-20000.
+Based on yhe ports you've configured in XRAY Inbounds, you have to allow inbound traffic on ports 80, 443, 2098, <YOUR-UI-PORT>.
 
 
 ## Additional Options.
