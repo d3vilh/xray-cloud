@@ -83,7 +83,6 @@ You can use Shadowsocks now, but it is better to continue with VLESS & XTLS-Real
 
 Here how Shadowsocs Configuration looks like:
 
-
 <img src="https://raw.githubusercontent.com/d3vilh/raspberry-gateway/master/images/XRAY-SS-Config1.png" alt="Raspberry ShadowSocks Configuration 1" width="300" border="0" />
 
 ### 2. VLESS & XTLS-Reality Configuration
@@ -114,24 +113,20 @@ To create VLESS Inbound you need to:
 
 Here how Realty Configuration looks like:
 
-
 <img src="https://raw.githubusercontent.com/d3vilh/raspberry-gateway/master/images/XRAY-Realty-Config1.png" alt="Raspberry Realty Configuration 1" width="300" border="0" /><br><img src="https://raw.githubusercontent.com/d3vilh/raspberry-gateway/master/images/XRAY-Realty-Config2.png" alt="Raspberry Realty Configuration 2" width="300" border="0" />
 
 This is what you'll have as a result of our configuration:
 
 <img src="https://raw.githubusercontent.com/d3vilh/raspberry-gateway/master/images/XRAY-Inbounds1.png" alt="Raspberry Configured XRAY Inbounds" width="900" border="0" />
 
-
-## AWS Security Group Configuration
+## Firewal Security Group Configuration
 
 Based on the ports you've configured in Xray Inbounds, you have to allow inbound traffic on ports `443`, `2098` (if you'll use subscriptions), `<YOUR-NEW-UI-PORT>` and `other` Inbound ports, if you are using it.
-
 
 ## Additional Options.
 Under `Pannel Settings` > `Xray Configuration` you can find some additional options. Such as block BitTorrent traffic for your Clients or enable Ads Blocking or Family-Friendly for them. 
 You can block connections to specific countries from the list like China, Russia, etc.
-In addition you can setup Xray Telegram Bot which will help you to manage your Xray Server via Telegram.
-
+In addition you can setup Telegram Bot which will help to manage your Xray Server via Telegram.
 
 # Xray Clients
 Here is the list of Clients you can use with Xray Server. 
