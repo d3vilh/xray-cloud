@@ -28,10 +28,12 @@ Fast shadowsocks tunnel proxy that helps you bypass firewalls.
      ```
      > If you see `ansible-galaxy: command not found`, you have to relogin and then try again.
   5. Run the following command to add the `docker` group if it doesn't exist and add user to the `docker` group:
+     > If you have docker installed for current user, you can skip this step.
      ```shell
      sudo groupadd docker
      sudo usermod -aG docker $USER
      ```
+
   6. **Double check** that `ansible_user` is correct for `inventory.yml`. Need to run installtion on the remote server - follow the recomendations in config file.
 
   7. Run installation playbook:
@@ -89,6 +91,7 @@ Here how Shadowsocs Configuration looks like:
 To create VLESS Inbound you need to:
 * Enable Subscriptions:
 `Pannel Service` > `Subscriptions` > `Enable Service` > `ON`
+
 `Save` > `Restart Pannel` to apply Subscriptions.
 * Add new Inbound:
 `Inbounds` > `Add Inbound`:
@@ -127,6 +130,9 @@ Based on the ports you've configured in Xray Inbounds, you have to allow inbound
 Under `Pannel Settings` > `Xray Configuration` you can find some additional options. Such as block BitTorrent traffic for your Clients or enable Ads Blocking or Family-Friendly for them. 
 You can block connections to specific countries from the list like China, Russia, etc.
 In addition you can setup Telegram Bot which will help to manage your Xray Server via Telegram.
+
+## How to connect.
+The best way is to click on QR-Code icon for desired `Client` and scan it with one of the Client App. listed below. Yes, it's that simple. 
 
 # Xray Clients
 Here is the list of Clients you can use with Xray Server. 
