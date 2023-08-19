@@ -1,7 +1,12 @@
-# xray-cloud
-Fast shadowsocks tunnel proxy that helps you bypass firewalls
+# Xray-cloud
+Fast shadowsocks tunnel proxy that helps you bypass firewalls.
+**Xray-cloud** supports any x86 servers be it a VPS, Cloud provider (AWS, GoogleC, Azure), a dedicated server, or a home computer. It also supports any ARM-based devices such as Raspberry Pi, Banana Pi, etc.
+
   > **!Beaware!**: Some protocols described here are [prohibited in PRC](https://en.wikipedia.org/wiki/Shadowsocks). Don't use this if you are in PRC. This is for your educational purposes only. 
-  
+
+<p align="center">
+<img src="/images/XRAY-Dashboard1.png" alt="Xray Dashboard" height="358"><img src="/images/XRAY-Dashboard2.png" alt="Xray Inbounds" height="358">
+</p>
 # Installation
 
   1. Install [Ansible](https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html) and Git:
@@ -22,32 +27,27 @@ Fast shadowsocks tunnel proxy that helps you bypass firewalls
      ansible-galaxy collection install -r requirements.yml
      ```
      > If you see `ansible-galaxy: command not found`, you have to relogin and then try again.
-  5. Make copies of the configuration files and modify them for your enviroment:
-     ```shell
-     yes | cp -p example.inventory.yml inventory.yml
-     yes | cp -p example.config.yml config.yml
-     ```
-  6. Run the following command to add the `docker` group if it doesn't exist and add user to the `docker` group:
+  5. Run the following command to add the `docker` group if it doesn't exist and add user to the `docker` group:
      ```shell
      sudo groupadd docker
      sudo usermod -aG docker $USER
      ```
-  7. Modify `inventory.yml` by replace of IP address with your EC2's Public or Private IPv4 address, or comment that line and uncomment the `connection=local` line if you're running it on the EC2 itself.
+  6. **Double check** that `ansible_user` is correct for `inventory.yml`. Need to run installtion on the remote server - follow the recomendations in config file.
 
-  8. Run installation playbook:
+  7. Run installation playbook:
      ```shell
      ansible-playbook main.yml
      ```
-  9. Ypu have to allow Security Group for your EC2 instance to allow inbound traffic on ports 80, 443, 54321(temporary), 2098.
+  8. You have to allow following ports for Inbound traffic in Security Group configuration: `443`, `54321` (temporary for UI), `2098` (if you'll be using subscriptions).
   
-  10. After installation, you can access the Xray Web UI at `http://<your-server-ip>:54321` and login with the default username `admin` and password `admin`. You can change the password in the Web UI.
+  9. After installation, you can access the Xray Web UI at `http://<your-server-ip>:54321` and login with the default username `admin` and password `admin`. You must change the password in the Web UI.
 
 # Basic Xray Server Configuration
 
 ## Important configuration notes:
    * **UI access port** `http://localhost:54321`, (*change `localhost` to your server host ip/name*)
    * **Default password** is `admin/admin`, which **must** be changed via web interface on first login (`Pannel Settings` > `User Settings`).
-   * **External ports** used by container: `443:tcp`, `80:tcp`, `54321:tcp`(by default), Inbound ports you'll configure.
+   * **External ports** used by container: `443:tcp`, `54321:tcp`(by default), Inbound ports you'll configure.
    * **Configuration files** you should mount `db` and `cert` directories into container, there it will store SQLite DB with configuration and there you'll put https certificate.
    * **It is Important** to change following settings for better security:
      * default password in `Pannel Settings` > `User Settings` > `Password` to something strong and secure.
@@ -124,17 +124,17 @@ This is what you'll have as a result of our configuration:
 
 ## AWS Security Group Configuration
 
-Based on yhe ports you've configured in XRAY Inbounds, you have to allow inbound traffic on ports 80, 443, 2098, <YOUR-UI-PORT>.
+Based on the ports you've configured in Xray Inbounds, you have to allow inbound traffic on ports `443`, `2098` (if you'll use subscriptions), `<YOUR-NEW-UI-PORT>` and `other` Inbound ports, if you are using it.
 
 
 ## Additional Options.
 Under `Pannel Settings` > `Xray Configuration` you can find some additional options. Such as block BitTorrent traffic for your Clients or enable Ads Blocking or Family-Friendly for them. 
 You can block connections to specific countries from the list like China, Russia, etc.
-In addition you can setup XRAY Telegram Bot which will help you to manage your XRAY Server via Telegram.
+In addition you can setup Xray Telegram Bot which will help you to manage your Xray Server via Telegram.
 
 
 # Xray Clients
-Here is the list of Clients you can use with XRAY Server. 
+Here is the list of Clients you can use with Xray Server. 
 If you glad to use something different, plesae, let me know, I'll add it to the list.
 
 ### Universal Clients
@@ -144,12 +144,12 @@ If you glad to use something different, plesae, let me know, I'll add it to the 
 * [**Nekobox**](https://play.google.com/store/apps/details?id=moe.nb4a) for Android. Free. [Github](https://github.com/MatsuriDayo/NekoBoxForAndroid/releases).
 
 * [**V2RayNG**](https://play.google.com/store/apps/details?id=com.v2ray.ang&hl=en_US), [Github](https://github.com/2dust/v2rayNG)
-Uses XRay as a kernel, supports all the available for XRAY protocols.
+Uses XRay as a kernel, supports all the available for Xray protocols.
 
 ### MacOS Clients
 * [**V2BOX**](https://apps.apple.com/us/app/v2box-v2ray-client/id6446814690) for MacOS. Free.
 
-* [**Nekoray**](https://github.com/aaaamirabbas/nekoray-macos/releases) for MacOS. Free.
+* [**Nekoray**](https://github.com/aaaamirabbas/nekoray-macos/releases) for MacOS. Free but lame.
 
 ### iOS Clients
 * [**FoXray**](https://apps.apple.com/us/app/foxray/id6448898396). On [Appstore](https://apps.apple.com/us/app/foxray/id6448898396) for iPhone and iPad. Free.

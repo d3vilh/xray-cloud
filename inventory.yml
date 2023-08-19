@@ -1,0 +1,16 @@
+all:
+    hosts:
+        xray-cloud:
+        #  Section One Localhost:
+            ansible_host: 192.168.1.1
+            ansible_user: admin
+            ansible_connection: local
+            ansible_use: "yes"
+        #  Section Two Remotehost:
+            #ansible_host: 192.168.1.1
+            #ansible_user: pi
+            #ansible_connection: ssh
+            #ansible_use: "yes"
+
+# Comment out "Section One" parameters and uncomment "Section Two" to run on remote Raspberry-Gateway enviroment.
+# Double check the ansible_user and ansible_host.
